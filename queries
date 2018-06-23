@@ -1,0 +1,123 @@
+Queries
+
+### Find number of distinct users contributing to nodes and ways
+
+SELECT COUNT(*)
+FROM (
+SELECT DISTINCT * 
+FROM (
+SELECT nodes.uid, ways.uid 
+FROM nodes 
+LEFT JOIN ways USING(uid)
+UNION ALL
+SELECT nodes.uid, ways.uid
+FROM ways
+LEFT JOIN nodes USING(uid)
+WHERE nodes.uid IS NULL
+)
+);
+
+### Find number of distinct nodes
+
+SELECT COUNT(DISTINCT id) 
+FROM nodes;
+
+### Find number of distinct ways
+
+SELECT COUNT(DISTINCT id) 
+FROM ways;
+
+### Find number of distinct restaurants in dataset
+
+SELECT COUNT(*)
+FROM (
+SELECT DISTINCT *
+FROM (
+SELECT nodes_tags.id, ways_tags.id, nodes_tags.value, ways_tags.value 
+FROM nodes_tags 
+LEFT JOIN ways_tags USING(id)
+UNION ALL
+SELECT nodes_tags.id, ways_tags.id, nodes_tags.value, ways_tags.value
+FROM ways_tags
+LEFT JOIN nodes_tags USING(id)
+WHERE nodes_tags.id IS NULL
+)
+)
+WHERE value = 'restaurant';
+
+### Find number of distinct cafes in dataset
+
+SELECT COUNT(*)
+FROM (
+SELECT DISTINCT *
+FROM (
+SELECT nodes_tags.id, ways_tags.id, nodes_tags.value, ways_tags.value 
+FROM nodes_tags 
+LEFT JOIN ways_tags USING(id)
+UNION ALL
+SELECT nodes_tags.id, ways_tags.id, nodes_tags.value, ways_tags.value
+FROM ways_tags
+LEFT JOIN nodes_tags USING(id)
+WHERE nodes_tags.id IS NULL
+)
+)
+WHERE value = 'cafe';
+
+### Get average speed limit 
+
+SELECT AVG(SUBSTR(value, 1, 2))
+FROM ways_tags 
+WHERE (key = 'maxspeed') & (type = 'regular');
+
+### Get maximum speed limit
+
+SELECT MAX(SUBSTR(value, 1, 2))
+FROM ways_tags 
+WHERE (key = 'maxspeed') & (type = 'regular');
+
+### Get minimum speed limit
+
+SELECT MIN(SUBSTR(value, 1, 2))
+FROM ways_tags 
+WHERE (key = 'maxspeed') & (type = 'regular');
+
+### Get number of distinct addresses 
+
+SELECT COUNT(DISTINCT id)
+FROM nodes_tags
+WHERE type = 'addr';
+
+SELECT COUNT(*)
+FROM (
+SELECT DISTINCT *
+FROM (
+SELECT nodes_tags.id, ways_tags.id, nodes_tags.type, ways_tags.type 
+FROM nodes_tags 
+LEFT JOIN ways_tags USING(id)
+UNION ALL
+SELECT nodes_tags.id, ways_tags.id, nodes_tags.type, ways_tags.type
+FROM ways_tags
+LEFT JOIN nodes_tags USING(id)
+WHERE nodes_tags.id IS NULL
+)
+)
+WHERE type = 'addr';
+
+### Get number of streets ending in "Avenue"
+
+SELECT COUNT(*)
+FROM (
+SELECT DISTINCT *
+FROM (
+SELECT nodes_tags.value, ways_tags.value 
+FROM nodes_tags 
+LEFT JOIN ways_tags USING(value)
+UNION ALL
+SELECT nodes_tags.value, ways_tags.value
+FROM ways_tags
+LEFT JOIN nodes_tags USING(value)
+WHERE nodes_tags.id IS NULL
+)
+WHERE value LIKE '%Avenue';
+
+need to make 'Avenue' into ' Avenue' instead to avoid false values (e.g. 'https://www.facebook.com/phoavenue')

@@ -1,0 +1,3 @@
+https://www.openstreetmap.org/relation/1544955
+
+This is Palo Alto, a city right next to Stanford University in the bay area of California. I chose this as my location for this project since I go to Stanford University and am quite familiar with the surrounding area, especially Palo Alto. On the mapzen page where I downloaded the openstreetmap data, it lists Palo Alto as a "locality".
