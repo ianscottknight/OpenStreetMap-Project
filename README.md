@@ -1,4 +1,4 @@
-# Analysis of Palo Alto OpenStreetMap Database
+# Analysis of Palo Alto's OpenStreetMap Database
 
 ## DATA WRANGLING PROCESS:
 
