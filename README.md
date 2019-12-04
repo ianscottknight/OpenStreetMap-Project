@@ -19,7 +19,7 @@ The nodes_tags and ways_tags lists are more likely than nodes, ways, and ways_no
 
 (nodes_tags vs. ways_tags) x (key vs. value vs. type) = nodes_keys_audit.csv, nodes_values_audit.csv, nodes_types_audit.csv, ways_keys_audit.csv, ways_values_audit.csv, ways_types_audit.csv
 
-After examining these various audit csv files, I came across a problem with the values of tags with ‘phone’ as there key. Namely, the phone numbers (i.e. the tag values) were irregular and had no consistent format (e.g. ‘+1 (650) 564-1024’, ‘650-564-1024’, ‘650.564.1024’, etc.). I will cover how I solved this in the “cleaning process” section below.
+After examining these various audit csv files, I came across a problem with the values of tags with ‘phone’ as their key. Namely, the phone numbers (i.e. the tag values) were irregular and had no consistent format (e.g. ‘+1 (650) 564-1024’, ‘650-564-1024’, ‘650.564.1024’, etc.). I will cover how I solved this in the “cleaning process” section below.
 
 Furthermore, I noticed that running the program with validate=True provides an error message pointing out that there is at least one instance where the “uid” and “user” fields of the nodes list are missing. We will have to deal with this in the cleaning process.
 ### Cleaning process
